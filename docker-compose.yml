@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  books:
+    build: ./bookapi
+    container_name: bookapi 
+    volumes:
+      - type: bind 
+        source: ./bookapi
+        target: /bookapi
+    networks:
+      bookapi_internal:
+        ipv4_address: 172.26.0.3
+    ports:
+      - 8855:8855
+networks:
+  bookapi_internal:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.26.0.0/16
+volumes:
+  bookapi_v:
